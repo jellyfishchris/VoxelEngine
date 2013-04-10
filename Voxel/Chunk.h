@@ -28,7 +28,7 @@ public:
 	int GetPosX(){return m_posX;}
 	int GetPosZ(){return m_posZ;}
 
-	static const int CHUNK_SIZE = 10; 
+	static const int CHUNK_SIZE = 16; 
 private:
 	void CheckChildrenNode(BlockNode* node, int startx, int starty, int startz, int deltax, int deltay, int deltaz);
 	void CreateBlock(bool* faces, float x, float y, float z);

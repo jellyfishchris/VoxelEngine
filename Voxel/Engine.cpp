@@ -18,6 +18,22 @@ void Engine::Draw(float dt)
 	glLoadIdentity();
 
 	glLoadMatrixf(glm::value_ptr(m_frustumCamera->GetOri()));
+	//glLineWidth(10);
+	//glColor3f(1,0,0);
+	//glBegin(GL_LINES);
+	//glVertex3f(0,0,0);
+	//glVertex3f(10,0,0);
+	//glEnd();
+	//glColor3f(0,1,0);
+	//glBegin(GL_LINES);
+	//glVertex3f(0,0,0);
+	//glVertex3f(0,10,0);
+	//glEnd();
+	//glColor3f(0,0,1);
+	//glBegin(GL_LINES);
+	//glVertex3f(0,0,0);
+	//glVertex3f(0,0,10);
+	//glEnd();
 	m_chunks->Draw();
 	SDL_GL_SwapBuffers();
 }

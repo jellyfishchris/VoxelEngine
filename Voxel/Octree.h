@@ -8,7 +8,7 @@ class Chunk;
 
 struct TypeChecker
 {
-	TypeChecker::TypeChecker(char type, bool val): m_type(type), m_val(val){}
+	TypeChecker::TypeChecker(int type, bool val): m_type(type), m_val(val){}
 	char m_type;
 	bool m_val;
 };

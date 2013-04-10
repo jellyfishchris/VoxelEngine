@@ -78,20 +78,20 @@ TypeChecker Octree::CheckArea( int startx, int starty, int startz, int deltax, i
 {
 	char type = 0;
 	bool started = false;
-	for(unsigned int z = 0; z < deltaz; z++)
+	for(unsigned int z = startz; z < deltaz + startz; z++)
 	{
-		for(unsigned int y = 0; y < deltay; y++)
+		for(unsigned int y = starty; y < deltay + starty; y++)
 		{
-			for(unsigned int x = 0; x < deltax; x++)
+			for(unsigned int x = startx; x < deltax + startx; x++)
 			{
 				if(!started)
 				{
-					type = m_c->GetBlock(startx + x,starty + y, startz + z)->m_type;
+					type = m_c->GetBlock(x, y, z)->m_type;
 					started = true;
 				}
 				else
 				{
-					if(m_c->GetBlock(startx + x,starty + y, startz + z)->m_type != type)
+					if(m_c->GetBlock(x, y, z)->m_type != type)
 					{
 						return TypeChecker(type, false);
 					}
@@ -123,7 +123,7 @@ void Octree::BuildNodes( BlockNode* base, int startx, int starty, int startz, in
 				for(unsigned int x = 0; x < 2; x++)
 				{
 					base->m_nodes[x + (y * 2) + (z * 2 * 2)] = new BlockNode();
-					BuildNodes(base->m_nodes[x + (y * 2) + (z * 2 * 2)], startx + x, starty + y, startz + z, deltax / 2, deltay / 2, deltaz / 2);
+					BuildNodes(base->m_nodes[x + (y * 2) + (z * 2 * 2)], startx + (x * deltax / 2), starty + (y * deltay / 2), startz + (z * deltaz / 2), deltax / 2, deltay / 2, deltaz / 2);
 				}
 			}
 		}
@@ -149,6 +149,7 @@ Block* Octree::GetBlock( int x, int y, int z )
 
 		if(node->m_nodes[(zpos * 4) + (ypos * 2) + xpos] == nullptr)
 		{
+			std::cout << (int)node->m_block.m_type;
 			return &node->m_block;
 		}
 		node = node->m_nodes[(zpos * 4) + (ypos * 2) + xpos];
