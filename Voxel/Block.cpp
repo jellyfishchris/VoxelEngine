@@ -2,7 +2,7 @@
 
 Block::Block(void)
 {
-	m_type = (rand() % 4) + 80;
+	m_type = (rand() % 4) + 1;
 }
 
 
