@@ -35,7 +35,16 @@ std::string Octree::BuildString()
 {
 	std::stringstream ss; 
 	ss << "Hello";
-
+	for(unsigned int z = 0; z < Chunk::CHUNK_SIZE; z++)
+	{
+		for(unsigned int y = 0; y < Chunk::CHUNK_SIZE; y++)
+		{
+			for(unsigned int x = 0; x < Chunk::CHUNK_SIZE; x++)
+			{
+				std::cout << (int)GetBlock(x,y,z)->m_type;
+			}
+		}
+	}
 	return ss.str();
 }
 
@@ -149,12 +158,15 @@ Block* Octree::GetBlock( int x, int y, int z )
 
 		if(node->m_nodes[(zpos * 4) + (ypos * 2) + xpos] == nullptr)
 		{
-			std::cout << (int)node->m_block.m_type;
 			return &node->m_block;
 		}
 		node = node->m_nodes[(zpos * 4) + (ypos * 2) + xpos];
+		startx = startx + ((width / 2) * xpos);
+		starty = starty + ((height / 2) * ypos);
+		startz = startz + ((depth / 2) * zpos);
 		width /= 2; height /= 2; depth /= 2;
 	}
+	return nullptr;
 }
 
 bool Octree::Init()

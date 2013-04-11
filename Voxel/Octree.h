@@ -15,14 +15,14 @@ struct TypeChecker
 struct BlockNode
 {
 	/*
-		0 - Front top left
-		1 - Front top right
-		2 - Front bot left
-		3 - Front bot right
-		4 - Back top left
-		5 - Back top right
-		6 - Back bot left
-		7 - Back bot right
+		0 - Front bot left
+		1 - Front bot right
+		2 - Front top left
+		3 - Front top right
+		4 - Back bot left
+		5 - Back bot right
+		6 - Back top left
+		7 - Back top right
 	*/
 	BlockNode();
 	~BlockNode();

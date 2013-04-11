@@ -9,75 +9,10 @@ Chunk::Chunk(int posX, int posZ)
 void Chunk::Init()
 {
 	m_blocks.resize(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE);
-	//for (int z = 0; z < CHUNK_SIZE; z++)
-	//{
-	//	for (int y = 0; y < CHUNK_SIZE; y++)
-	//	{
-	//		for (int x = 0; x < CHUNK_SIZE; x++)
-	//		{
-	//			if (sqrt((float) (x-CHUNK_SIZE/2)*(x-CHUNK_SIZE/2) + (y-CHUNK_SIZE/2)*(y-CHUNK_SIZE/2) + (z-CHUNK_SIZE/2)*(z-CHUNK_SIZE/2)) <= CHUNK_SIZE/2)
-	//			{
-	//				GetBlock(x,y,z)->m_type = 1;
-	//			}
-	//			else
-	//				GetBlock(x,y,z)->m_type = 0;
-	//		}
-	//	}
-	//}
-	for (int z = 0; z < CHUNK_SIZE / 2; z++)
-	{
-		for (int y = 0; y < CHUNK_SIZE / 2; y++)
-		{
-			for (int x = 0; x < (CHUNK_SIZE / 2); x++)
-			{
-				GetBlock(x,y,z)->m_type = 1;
-			}
-		}
-	}
-	for (int z = 0; z < CHUNK_SIZE / 2; z++)
-	{
-		for (int y = 0; y < CHUNK_SIZE / 2; y++)
-		{
-			for (int x = CHUNK_SIZE / 2; x < CHUNK_SIZE; x++)
-			{
-				GetBlock(x,y,z)->m_type = 2;
-			}
-		}
-	}
-	for (int z = 0; z < CHUNK_SIZE / 2; z++)
-	{
-		for (int y = CHUNK_SIZE / 2; y < CHUNK_SIZE; y++)
-		{
-			for (int x = CHUNK_SIZE / 2; x < CHUNK_SIZE; x++)
-			{
-				GetBlock(x,y,z)->m_type = 3;
-			}
-		}
-	}
-	for (int z = 0; z < CHUNK_SIZE / 2; z++)
-	{
-		for (int y = CHUNK_SIZE / 2; y < CHUNK_SIZE; y++)
-		{
-			for (int x = 0; x < CHUNK_SIZE / 2; x++)
-			{
-				GetBlock(x,y,z)->m_type = 4;
-			}
-		}
-	}
-	for (int z = CHUNK_SIZE / 2; z < CHUNK_SIZE; z++)
-	{
-		for (int y = 0; y < CHUNK_SIZE; y++)
-		{
-			for (int x = 0; x < CHUNK_SIZE; x++)
-			{
-				GetBlock(x,y,z)->m_type = 0;
-			}
-		}
-	}
 	m_tree = new Octree();
 	m_tree->SetData(this);
 	m_tree->Init();
-	//m_blocks.clear();
+	m_blocks.clear();
 }
 
 Chunk::Chunk()
@@ -87,56 +22,56 @@ Chunk::Chunk()
 
 void Chunk::SetFaces( bool* faces, int i, int x, int y, int z)
 {
-	//Left & Right
-	if(x -1 < 0 || m_blocks[i - 1].m_type == 0)
-	{faces[0] = true;}
-	else{faces[0] = false;}
-	if(x + 1 >= CHUNK_SIZE || m_blocks[i + 1].m_type == 0)
-	{faces[1] = true;}
-	else{faces[1] = false;}
-
-	//Top & Bottom
-	if(y - 1 < 0 || m_blocks[i - CHUNK_SIZE].m_type == 0)
-	{faces[2] = true;}
-	else{faces[2] = false;}
-	if(y + 1 >= CHUNK_SIZE || m_blocks[i + CHUNK_SIZE].m_type == 0)
-	{faces[3] = true;}
-	else{faces[3] = false;}
-
-	//Front & Back
-	if(z - 1 < 0 || m_blocks[i - CHUNK_SIZE * CHUNK_SIZE].m_type == 0)
-	{faces[4] = true;}
-	else{faces[4] = false;}
-	if(z + 1 >= CHUNK_SIZE || m_blocks[i + CHUNK_SIZE * CHUNK_SIZE].m_type == 0)
-	{faces[5] = true;}
-	else{faces[5] = false;}
-	
-
-
-
 	////Left & Right
-	//if(x -1 < 0 || m_tree->GetBlock(x - 1, y, z)->m_type == 0)
+	//if(x -1 < 0 || m_blocks[i - 1].m_type == 0)
 	//{faces[0] = true;}
 	//else{faces[0] = false;}
-	//if(x + 1 >= CHUNK_SIZE || m_tree->GetBlock(x + 1, y, z)->m_type == 0)
+	//if(x + 1 >= CHUNK_SIZE || m_blocks[i + 1].m_type == 0)
 	//{faces[1] = true;}
 	//else{faces[1] = false;}
 
 	////Top & Bottom
-	//if(y - 1 < 0 || m_tree->GetBlock(x, y - 1, z)->m_type == 0)
+	//if(y - 1 < 0 || m_blocks[i - CHUNK_SIZE].m_type == 0)
 	//{faces[2] = true;}
 	//else{faces[2] = false;}
-	//if(y + 1 >= CHUNK_SIZE || m_tree->GetBlock(x, y + 1, z)->m_type == 0)
+	//if(y + 1 >= CHUNK_SIZE || m_blocks[i + CHUNK_SIZE].m_type == 0)
 	//{faces[3] = true;}
 	//else{faces[3] = false;}
 
 	////Front & Back
-	//if(z - 1 < 0 || m_tree->GetBlock(x, y, z - 1)->m_type == 0)
+	//if(z - 1 < 0 || m_blocks[i - CHUNK_SIZE * CHUNK_SIZE].m_type == 0)
 	//{faces[4] = true;}
 	//else{faces[4] = false;}
-	//if(z + 1 >= CHUNK_SIZE || m_tree->GetBlock(x, y, z + 1)->m_type == 0)
+	//if(z + 1 >= CHUNK_SIZE || m_blocks[i + CHUNK_SIZE * CHUNK_SIZE].m_type == 0)
 	//{faces[5] = true;}
 	//else{faces[5] = false;}
+	//
+
+
+
+	//Left & Right
+	if(x -1 < 0 || m_tree->GetBlock(x - 1, y, z)->m_type == 0)
+	{faces[0] = true;}
+	else{faces[0] = false;}
+	if(x + 1 >= CHUNK_SIZE || m_tree->GetBlock(x + 1, y, z)->m_type == 0)
+	{faces[1] = true;}
+	else{faces[1] = false;}
+
+	//Top & Bottom
+	if(y - 1 < 0 || m_tree->GetBlock(x, y - 1, z)->m_type == 0)
+	{faces[2] = true;}
+	else{faces[2] = false;}
+	if(y + 1 >= CHUNK_SIZE || m_tree->GetBlock(x, y + 1, z)->m_type == 0)
+	{faces[3] = true;}
+	else{faces[3] = false;}
+
+	//Front & Back
+	if(z - 1 < 0 || m_tree->GetBlock(x, y, z - 1)->m_type == 0)
+	{faces[4] = true;}
+	else{faces[4] = false;}
+	if(z + 1 >= CHUNK_SIZE || m_tree->GetBlock(x, y, z + 1)->m_type == 0)
+	{faces[5] = true;}
+	else{faces[5] = false;}
 }
 void Chunk::CheckChildrenNode( BlockNode* node, int startx, int starty, int startz, int deltax, int deltay, int deltaz )
 {
@@ -186,7 +121,7 @@ void Chunk::CreateVBO(TextureAtlas* texture )
 	m_texture = texture;
 
 	CheckChildrenNode( m_tree->GetNode(), 0, 0, 0, CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE );
-
+	m_tree->GetNode();
 	if(m_model->GetArrayVert().size() > 0)
 	{
 		m_enabled = true;
