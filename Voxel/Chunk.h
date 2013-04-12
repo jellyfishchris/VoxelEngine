@@ -32,6 +32,7 @@ public:
 private:
 	void CheckChildrenNode(BlockNode* node, int startx, int starty, int startz, int deltax, int deltay, int deltaz);
 	void CreateBlock(bool* faces, float x, float y, float z);
+	void CreateBlock(bool* faces, float startx, float starty, float startz, float endx, float endy, float endz);
 	void SetFaces(bool* faces, int i, int x, int y, int z);
 
 	int m_posX;

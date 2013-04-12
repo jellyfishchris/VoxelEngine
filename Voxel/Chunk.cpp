@@ -92,21 +92,26 @@ void Chunk::CheckChildrenNode( BlockNode* node, int startx, int starty, int star
 	{
 		if(node->m_block.m_type != 0)
 		{
-			for(unsigned int z = 0; z < deltaz; z++)
-			{
-				for(unsigned int y = 0; y < deltay; y++)
-				{
-					for(unsigned int x = 0; x < deltax; x++)
-					{
-						int i = (startx + x) + ((starty + y) * CHUNK_SIZE) + ((startz + z) * CHUNK_SIZE * CHUNK_SIZE);
-						bool faces[6];
-						m_texture->SetTexture(node->m_block.m_type);
-						SetFaces(faces, i, startx + x, starty + y, startz + z);
-						
-						CreateBlock(faces, ((startx  + x) * Block::BLOCK_SIZE), ((starty + y) * Block::BLOCK_SIZE), ((startz + z) * Block::BLOCK_SIZE));
-					}
-				}
-			}
+			int i = (startx) + ((starty) * CHUNK_SIZE) + ((startz) * CHUNK_SIZE * CHUNK_SIZE);
+			bool faces[6];
+			m_texture->SetTexture(node->m_block.m_type);
+			//SetFaces(faces, i, startx, starty, startz);
+			CreateBlock(faces, startx * Block::BLOCK_SIZE, starty * Block::BLOCK_SIZE, startz * Block::BLOCK_SIZE, (startx + deltax) * Block::BLOCK_SIZE, (starty + deltay) * Block::BLOCK_SIZE, (startz + deltaz) * Block::BLOCK_SIZE);
+			//for(unsigned int z = 0; z < deltaz; z++)
+			//{
+			//	for(unsigned int y = 0; y < deltay; y++)
+			//	{
+			//		for(unsigned int x = 0; x < deltax; x++)
+			//		{
+			//			int i = (startx + x) + ((starty + y) * CHUNK_SIZE) + ((startz + z) * CHUNK_SIZE * CHUNK_SIZE);
+			//			bool faces[6];
+			//			m_texture->SetTexture(node->m_block.m_type);
+			//			SetFaces(faces, i, startx + x, starty + y, startz + z);
+			//			
+			//			CreateBlock(faces, ((startx  + x) * Block::BLOCK_SIZE), ((starty + y) * Block::BLOCK_SIZE), ((startz + z) * Block::BLOCK_SIZE));
+			//		}
+			//	}
+			//}
 
 		}
 	}
@@ -192,17 +197,22 @@ void Chunk::Update( float dt )
 
 void Chunk::CreateBlock(bool* faces, float x, float y, float z )
 {
-	glm::vec3 p1(x, y, z + Block::BLOCK_SIZE);
-	glm::vec3 p2(x + Block::BLOCK_SIZE, y, z + Block::BLOCK_SIZE);
-	glm::vec3 p3(x + Block::BLOCK_SIZE, y + Block::BLOCK_SIZE, z + Block::BLOCK_SIZE);
-	glm::vec3 p4(x, y + Block::BLOCK_SIZE, z + Block::BLOCK_SIZE);
-	glm::vec3 p5(x + Block::BLOCK_SIZE, y, z);
-	glm::vec3 p6(x, y, z);
-	glm::vec3 p7(x, y + Block::BLOCK_SIZE, z);
-	glm::vec3 p8(x + Block::BLOCK_SIZE, y + Block::BLOCK_SIZE, z);
+	CreateBlock(faces, x, y, z, x + Block::BLOCK_SIZE, y + Block::BLOCK_SIZE, z + Block::BLOCK_SIZE);
+}
+
+void Chunk::CreateBlock( bool* faces, float startx, float starty, float startz, float endx, float endy, float endz )
+{
+	glm::vec3 p1(startx, starty, endz);
+	glm::vec3 p2(endx, starty, endz);
+	glm::vec3 p3(endx, endy, endz);
+	glm::vec3 p4(startx, endy, endz);
+	glm::vec3 p5(endx, starty, startz);
+	glm::vec3 p6(startx, starty, startz);
+	glm::vec3 p7(startx, endy, startz);
+	glm::vec3 p8(endx, endy, startz);
 
 	unsigned int v1; unsigned int v2; unsigned int v3; unsigned int v4; unsigned int v5; unsigned int v6; unsigned int v7; unsigned int v8;
-	
+
 	glm::vec3 n1(0.0, 0.0,-1.0);
 
 	if(faces[5])
@@ -277,7 +287,6 @@ void Chunk::CreateBlock(bool* faces, float x, float y, float z )
 		m_model->AddTriangleToMesh( v6, v5, v2);
 		m_model->AddTriangleToMesh( v6, v2, v1);
 	}
-
 
 }
 
