@@ -9,6 +9,38 @@ Chunk::Chunk(int posX, int posZ)
 void Chunk::Init()
 {
 	m_blocks.resize(CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE);
+	
+	for(unsigned int z = 0; z < CHUNK_SIZE / 2; z++)
+	{
+		for(unsigned int y = 0; y < CHUNK_SIZE / 2; y++)
+		{
+			for(unsigned int x = 0; x < CHUNK_SIZE / 2; x++)
+			{
+				GetBlock(x,y,z)->m_type = 1;
+			}
+		}
+	}
+	for(unsigned int z = 0; z < CHUNK_SIZE / 2; z++)
+	{
+		for(unsigned int y = 0; y < CHUNK_SIZE / 2; y++)
+		{
+			for(unsigned int x = CHUNK_SIZE / 2; x < CHUNK_SIZE; x++)
+			{
+				GetBlock(x,y,z)->m_type = 2;
+			}
+		}
+	}
+	for(unsigned int z = 0; z < CHUNK_SIZE / 2; z++)
+	{
+		for(unsigned int y = CHUNK_SIZE / 2; y < CHUNK_SIZE; y++)
+		{
+			for(unsigned int x = 0; x < CHUNK_SIZE / 2; x++)
+			{
+				GetBlock(x,y,z)->m_type = 3;
+			}
+		}
+	}
+
 	m_tree = new Octree();
 	m_tree->SetData(this);
 	m_tree->Init();
