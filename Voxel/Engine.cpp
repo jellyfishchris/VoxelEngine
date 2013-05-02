@@ -106,12 +106,13 @@ void Engine::Initialize(int width, int height, unsigned int fpsCap, std::vector<
 			glClearColor (0.7f, 0.9f, 1.0f, 0.0f);
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
-			gluPerspective(45,width/height,1.0,500.0);
+			gluPerspective(45,width/height,1.0,2000.0);
 			//	glOrtho(...?);
 			glMatrixMode(GL_MODELVIEW);
 
 			SDL_ShowCursor(SDL_DISABLE); 
 			SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY,SDL_DEFAULT_REPEAT_INTERVAL);
+			GLenum init = glewInit();
 		}
 		if(m_frustumCamera == nullptr)
 		{

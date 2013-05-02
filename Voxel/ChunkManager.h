@@ -14,7 +14,7 @@ public:
 
 	TextureAtlas* m_atlas;
 	std::list<Chunk*> m_renderList;
-	Chunk* m_pChunks[1][1][1];
+	Chunk* m_pChunks[8][2][8];
 };
 
 #endif
