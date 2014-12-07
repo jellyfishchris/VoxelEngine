@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Header>
+	<Filename>Texture.bmp</Filename>
+	<TotalUniqueIDS>2</TotalUniqueIDS>
+	<Width>2</Width>
+	<Height>2</Height>
+</Header>
+ <Blocks>
+	<Block id="0">
+		<Face type="FRONT" offset="0"/>
+		<Face type="OTHER" offset="1" total="5"/>
+	</Block>
+	<Block id="1">
+		<Face type="FRONT" offset="0"/>
+		<Face type="OTHER" offset="1" total="5"/>
+	</Block>
+</Blocks>
