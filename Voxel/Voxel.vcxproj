@@ -10,6 +10,22 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="SDLEngine.cpp" />
+    <ClCompile Include="SDLInputHandler.cpp" />
+    <ClCompile Include="SDLRenderer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine.h" />
+    <ClInclude Include="InputEvent.h" />
+    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="SDLEngine.h" />
+    <ClInclude Include="SDLInputHandler.h" />
+    <ClInclude Include="SDLRenderer.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D558D886-D597-4D56-A34A-DCD7A71E3D46}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
